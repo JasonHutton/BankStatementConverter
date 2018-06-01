@@ -253,6 +253,10 @@ namespace BankStatementConverter.Statements
             foreach (string record in records)
             {
                 string amt = record.Substring(record.LastIndexOf("$"));
+                string tamt = record.Substring(record.LastIndexOf("$") - 1);
+                if (tamt[0] == '-')
+                    amt = record.Substring(record.LastIndexOf("$") - 1);
+
                 decimal amount = decimal.Parse(amt, NumberStyles.Currency);
 
                 // This is a hack due to issues with whitespace detection. We're just going to read 3 letters, and 1-2 numbers for each date, with an indeterminate number of spaces between.
@@ -275,7 +279,8 @@ namespace BankStatementConverter.Statements
                 HackGetDay(dates, ref index, pDay);
                 HackSkipSpaces(dates, ref index);
 
-                string description = record.Substring(index + 2, record.Length - (index + 2 + amt.Length));
+                //string description = record.Substring(index + 2, record.Length - (index + 2 + amt.Length));
+                string description = record.Substring(index, record.Length - (index +  + amt.Length));
 
                 Transaction t = new Transaction(GetBiasedYearDate(tMonth.ToString(), tDay.ToString()),
                     GetBiasedYearDate(pMonth.ToString(), pDay.ToString()), amount, description);

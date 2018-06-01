@@ -36,6 +36,14 @@ namespace BankStatementConverter
                 statement.GetTransactions(transactions);
             }
 
+            using (StreamWriter file = new StreamWriter("./Output.txt"))
+            {
+                foreach (Transaction t in transactions)
+                {
+                    file.WriteLine(string.Format("{0}\t{1}\t{2}\t{3}", t.transactionDate, t.postingDate, Regex.Replace(t.description, @"\t|\n|\r", ""), t.amount));
+                }
+            }
+
             Console.Write("Press Any Key to Continue...");
             Console.ReadKey();
         }

@@ -8,10 +8,10 @@ namespace BankStatementConverter.Transactions
 {
     public class Transaction
     {
-        private DateTime transactionDate;
-        private DateTime postingDate;
-        private String description;
-        private decimal amount;
+        public DateTime transactionDate;
+        public DateTime postingDate;
+        public String description;
+        public decimal amount;
         //private String extraData;
 
         public Transaction(DateTime tDate, DateTime pDate, decimal amount, String description)
